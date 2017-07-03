@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class User {
     private String username;
     private String password;
@@ -49,8 +51,21 @@ public class User {
         this.balance = deposit;
     }
 
-    public boolean authenticate(String username, String password) {
-        return username.equals(this.username) && password.equals(this.password);
+    public boolean authenticate() throws Exception {
+        List<User> list = UserDataUtil.getAllUsers();
+        boolean isUserValid = false;
+        for(User user : list) {
+            isUserValid = user.username.equals(this.username) && user.password.equals(this.password);
+            if(isUserValid) {
+                this.setBalance(user.getBalance());
+                return isUserValid;
+            }
+        }
+        return isUserValid;
+    }
+
+    public String toString() {
+        return this.username + ":" + this.password + ":" + this.balance;
     }
 
 }
