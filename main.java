@@ -4,6 +4,7 @@ public class main {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         boolean isLoggedIn = false;
+        User user = new User("user", "pass");
         int command = 0;
         while(command != 5) {
             if(!isLoggedIn) {
@@ -15,7 +16,7 @@ public class main {
                 String password = scanner.next();
                 System.out.println(password);
                 //TODO authenticate user
-                isLoggedIn = authenticate(username, password);
+                isLoggedIn = user.authenticate(username, password);
             } else {
                 String console = "Choose what you wanna do? \n1. View Balance \n2. Deposit Amount \n3. Purchase Item \n4. Close Account \n5. Exit \nHit that number:";
                 System.out.print(console);
@@ -44,10 +45,6 @@ public class main {
                 }
             }
         }
-    }
-    private static boolean authenticate(String username, String password) {
-        //TODO implement auth
-        return true;
     }
     
     private static void continu() {
