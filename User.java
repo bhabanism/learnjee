@@ -31,10 +31,6 @@ public class User {
         this.balance = balance;
     }
 
-    public long viewBalance() {
-        return this.getBalance();
-    }
-
     public void deposit(long amount) {
         this.balance += amount;
     }
