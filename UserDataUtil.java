@@ -18,6 +18,10 @@ public class UserDataUtil {
         return userlist;
     }
 
+    public static void updateAllUsers(List<String> list) throws Exception {
+        DataAccess.updateData(list);
+    }
+
     public static void main(String[] args) {
         try {
             List<User> list = getAllUsers();

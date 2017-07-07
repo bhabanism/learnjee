@@ -1,4 +1,6 @@
 import java.util.List;
+import java.util.ArrayList;
+
 
 public class User {
     private String username;
@@ -31,8 +33,17 @@ public class User {
         this.balance = balance;
     }
 
-    public void deposit(long amount) {
+    public void deposit(long amount) throws Exception {
         this.balance += amount;
+        List<User> userlist = UserDataUtil.getAllUsers();        
+        List<String> list = new ArrayList<String>();
+        for(User user : userlist) {
+            if(this.username.equalsIgnoreCase(user.username)) {
+                user.setBalance(this.balance);
+            }
+            list.add(user.toString());
+        }
+        UserDataUtil.updateAllUsers(list);
     }
 
     public void purchase(long price) {
@@ -61,7 +72,7 @@ public class User {
     }
 
     public String toString() {
-        return this.username + ":" + this.password + ":" + this.balance;
+        return this.username + " " + this.password + " " + this.balance;
     }
 
 }

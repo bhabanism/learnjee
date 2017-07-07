@@ -12,9 +12,9 @@ public class UserAccountService {
         return user.getBalance();
     }
 
-    public void deposit(long amount) {
-        //this.balance += amount;
-        throw new UnsupportedOperationException("To do! Implement this shit!");
+    public static void deposit(User user, long amount) throws Exception {
+        //TODO Aspects to implement authentication on each transaction
+        getAuthenticatedUser(user).deposit(amount);
     }
 
     public void purchase(long price) {
@@ -29,13 +29,12 @@ public class UserAccountService {
         throw new UnsupportedOperationException("To do! Implement this shit!");
     }
 
-    /*private boolean authenticate(String username, String password) throws Exception {
-        User user = new User(username, password);
-        return user.authenticate();
-    }*/
-
     public static User getAuthenticatedUser(String username, String password) throws Exception {
         User user = new User(username, password);
+        return user.authenticate() ? user : null;
+    }
+
+    private static User getAuthenticatedUser(User user) throws Exception {
         return user.authenticate() ? user : null;
     }
 
