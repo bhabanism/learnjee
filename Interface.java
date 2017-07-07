@@ -25,8 +25,8 @@ public class Interface {
                             continu();
                             break;
                         case 2:
-                            System.out.println("You deposited amount");
-                            UserAccountService.deposit(user, 10);
+                            System.out.print("Enter amount to deposit:");
+                            UserAccountService.deposit(user, scanner.nextInt());
                             continu();
                             break;
                         case 3:                        
