@@ -85,7 +85,10 @@ public class UserAccountServiceTest {
     */
     @Test
     public void testOpenAccount() throws Exception {
-    //TODO: Test goes here...
+        String username = "testuser";
+        String password = "testpass";
+        long openingBalance = 100;
+        UserEntity user =  UserAccountService.openAccount(username, password, openingBalance);
     }
 
     /**

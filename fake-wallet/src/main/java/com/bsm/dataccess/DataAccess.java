@@ -22,7 +22,7 @@ public class DataAccess {
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
             List<String> list = new ArrayList<String>();
             stream.forEach(line -> list.add(line));
-            return list;
+            return new ArrayList<>(list);
         } catch(Exception e) {
             throw e;
         }

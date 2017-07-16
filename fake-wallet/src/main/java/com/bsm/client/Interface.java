@@ -9,22 +9,42 @@ public class Interface {
     private static Scanner scanner = new Scanner(System.in);
     public static void main() {
         try {
-            boolean isLoggedIn = false;
             int command = 0;
             UserEntity user = null;
             while(command != 5) {
                 if(user == null) {
-                    //TODO Implement Open Account
-                    System.out.print("Username:");
-                    String username = scanner.next();
-                    System.out.print("Password:");
-                    String password = scanner.next();  
-                    user =  UserAccountService.getAuthenticatedUser(username, password);
-                    if(user == null) {
-                        System.out.println("Invalid Login, try again!");
+
+                    String console = "Choose what you wanna do? \n" +
+                     "1. Login \n" +
+                      "2. Create Account \n" +
+                       "5. Exit \n" +
+                        "Choose a number: ";
+                    System.out.print(console);
+                    command = scanner.nextInt();
+                    switch(command) {
+                        case 1:
+                            user = login();
+                            continu();
+                            break;
+                        case 2:
+                            user = createAccount();
+                            continu();
+                            break;
+                        case 5:
+                            break;
+                        default:
+                            continu();
                     }
+                    //TODO Implement Open Account
+
                 } else {
-                    String console = "Choose what you wanna do? \n1. View Balance \n2. Deposit Amount \n3. Purchase Item \n4. Close Account \n5. Exit \nChoose a number:";
+                    String console = "Choose what you wanna do? \n" +
+                     "1. View Balance \n" +
+                      "2. Deposit Amount \n" +
+                       "3. Purchase Item \n" +
+                        "4. Close Account \n" +
+                         "5. Exit \n" +
+                          "Choose a number: ";
                     System.out.print(console);
                     command = scanner.nextInt();
                     switch(command) {
@@ -33,19 +53,17 @@ public class Interface {
                             continu();
                             break;
                         case 2:
-                            System.out.print("Enter amount to deposit:");
+                            System.out.print("Enter amount to deposit: ");
                             UserAccountService.deposit(user, scanner.nextInt());
                             continu();
                             break;
                         case 3:
-                            System.out.print("Enter price of item:");
+                            System.out.print("Enter price of item: ");
                             UserAccountService.purchase(user, scanner.nextInt());
                             continu();
                             break;
                         case 4: 
                             System.out.println("You closed the account");
-                            /*long withdrawAmount = UserAccountService.viewBalance(user);
-                            UserAccountService.purchase(user, withdrawAmount);*/
                             System.out.println("Here's $" + UserAccountService.closeAccount(user) + "! That's all you had! Thanks for being with us!");
                             continu();
                             return;
@@ -60,7 +78,32 @@ public class Interface {
             e.printStackTrace();
         }
     }
-    
+
+    private static UserEntity createAccount() throws Exception {
+        UserEntity user;
+        System.out.print("Username: ");
+        String username = scanner.next();
+        System.out.print("Password: ");
+        String password = scanner.next();
+        System.out.println("Enter Opening Balance: ");
+        long openingBalance = scanner.nextLong();
+        user = UserAccountService.openAccount(username, password, openingBalance);
+        return user;
+    }
+
+    private static UserEntity login() throws Exception {
+        UserEntity user;
+        System.out.print("Username: ");
+        String username = scanner.next();
+        System.out.print("Password: ");
+        String password = scanner.next();
+        user =  UserAccountService.getAuthenticatedUser(username, password);
+        if(user == null) {
+            System.out.println("Invalid Login, try again!");
+        }
+        return user;
+    }
+
     private static void continu() {
         System.out.println("\n\nHit Enter to continue...");
         scanner.nextLine();

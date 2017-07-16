@@ -30,10 +30,6 @@ public class UserAccountService {
         return balance;
     }
 
-    public void openAccount(UserEntity user, long deposit) {
-        throw new UnsupportedOperationException("To do! Implement this shit!");
-    }
-
     public static UserEntity getAuthenticatedUser(String username, String password) throws Exception {
         UserEntity user = new UserEntity(username, password);
         return user.authenticate() ? user : null;
@@ -47,4 +43,9 @@ public class UserAccountService {
         return user.toString();        
     }
 
+    public static UserEntity openAccount(String username, String password, long openingBalance) throws Exception {
+        UserEntity user = new UserEntity(username, password);
+        user.openAccount(openingBalance);
+        return user;
+    }
 }

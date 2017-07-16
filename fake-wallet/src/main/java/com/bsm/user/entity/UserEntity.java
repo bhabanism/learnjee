@@ -39,12 +39,12 @@ public class UserEntity {
 
     public void deposit(long amount) throws Exception {
         this.balance += amount;
-        updateAllUsers();
+        modifyBalanceAndupdateAllUsers();
     }
 
     public void purchase(long price) throws Exception {
         this.balance -= price;
-        updateAllUsers();
+        modifyBalanceAndupdateAllUsers();
     }
 
 
@@ -55,12 +55,16 @@ public class UserEntity {
         return balance;
     }
 
-    public void openAccount(long deposit) {
-        this.balance = deposit;
+    public void openAccount(long openingBalance) throws Exception {
+        this.balance = openingBalance;
+        List<UserEntity> allUsers = UserDataUtil.getAllUsersFromDB();
+        allUsers.add(this);
+        UserDataUtil.setAllUsers(allUsers);
+        updateAllUsers();
     }
 
     public boolean authenticate() throws Exception {
-        List<UserEntity> list = UserDataUtil.getAllUsers();
+        List<UserEntity> list = UserDataUtil.getAllUsersFromDB();
         boolean isUserValid = false;
         for(UserEntity user : list) {
             isUserValid = user.username.equals(this.username) && user.password.equals(this.password);
@@ -74,7 +78,7 @@ public class UserEntity {
 
 
     private void deleteUserAndUpdateAllUsers() throws Exception {
-        List<UserEntity> userlist = UserDataUtil.getAllUsers();
+        List<UserEntity> userlist = UserDataUtil.getAllUsersFromDB();
         List<String> list = new ArrayList<String>();
         for(UserEntity user : userlist) {
             if(!this.username.equalsIgnoreCase(user.username)) {
@@ -84,9 +88,18 @@ public class UserEntity {
         UserDataUtil.updateAllUsers(list);
     }
 
-
     private void updateAllUsers() throws Exception {
         List<UserEntity> userlist = UserDataUtil.getAllUsers();
+        List<String> list = new ArrayList<String>();
+        for(UserEntity user : userlist) {
+            list.add(user.toString());
+        }
+        UserDataUtil.updateAllUsers(list);
+    }
+
+    @Deprecated
+    private void modifyBalanceAndupdateAllUsers() throws Exception {
+        List<UserEntity> userlist = UserDataUtil.getAllUsersFromDB();
         List<String> list = new ArrayList<String>();
         for(UserEntity user : userlist) {
             if(this.username.equalsIgnoreCase(user.username)) {
