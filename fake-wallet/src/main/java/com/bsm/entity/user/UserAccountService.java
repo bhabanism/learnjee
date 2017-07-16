@@ -1,3 +1,5 @@
+package com.bsm.entity.user;
+
 import java.util.List;
 
 /**

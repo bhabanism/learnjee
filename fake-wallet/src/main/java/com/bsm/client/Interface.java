@@ -1,3 +1,8 @@
+package com.bsm.client;
+
+import com.bsm.entity.user.User;
+import com.bsm.entity.user.UserAccountService;
+
 import java.util.Scanner;
 
 public class Interface {

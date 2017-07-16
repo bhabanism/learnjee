@@ -1,6 +1,9 @@
+package com.bsm.entity.user;
+
 import java.util.StringTokenizer;
 import java.util.List;
 import java.util.ArrayList;
+import com.bsm.dataccess.DataAccess;
 
 
 public class UserDataUtil {
