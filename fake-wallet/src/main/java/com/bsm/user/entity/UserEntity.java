@@ -1,15 +1,17 @@
-package com.bsm.entity.user;
+package com.bsm.user.entity;
+
+import com.bsm.user.dataaccess.UserDataUtil;
 
 import java.util.List;
 import java.util.ArrayList;
 
 
-public class User {
+public class UserEntity {
     private String username;
     private String password;
     private long balance;
 
-    public User(String username, String password) {
+    public UserEntity(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -37,23 +39,20 @@ public class User {
 
     public void deposit(long amount) throws Exception {
         this.balance += amount;
-        List<User> userlist = UserDataUtil.getAllUsers();        
-        List<String> list = new ArrayList<String>();
-        for(User user : userlist) {
-            if(this.username.equalsIgnoreCase(user.username)) {
-                user.setBalance(this.balance);
-            }
-            list.add(user.toString());
-        }
-        UserDataUtil.updateAllUsers(list);
+        updateAllUsers();
     }
 
-    public void purchase(long price) {
+    public void purchase(long price) throws Exception {
         this.balance -= price;
+        updateAllUsers();
     }
-    
-    public void closeAccount() {
+
+
+    public long closeAccount() throws Exception {
+        deleteUserAndUpdateAllUsers();
+        long balance = this.balance;
         this.balance = 0;
+        return balance;
     }
 
     public void openAccount(long deposit) {
@@ -61,9 +60,9 @@ public class User {
     }
 
     public boolean authenticate() throws Exception {
-        List<User> list = UserDataUtil.getAllUsers();
+        List<UserEntity> list = UserDataUtil.getAllUsers();
         boolean isUserValid = false;
-        for(User user : list) {
+        for(UserEntity user : list) {
             isUserValid = user.username.equals(this.username) && user.password.equals(this.password);
             if(isUserValid) {
                 this.setBalance(user.getBalance());
@@ -71,6 +70,31 @@ public class User {
             }
         }
         return isUserValid;
+    }
+
+
+    private void deleteUserAndUpdateAllUsers() throws Exception {
+        List<UserEntity> userlist = UserDataUtil.getAllUsers();
+        List<String> list = new ArrayList<String>();
+        for(UserEntity user : userlist) {
+            if(!this.username.equalsIgnoreCase(user.username)) {
+                list.add(user.toString());
+            }
+        }
+        UserDataUtil.updateAllUsers(list);
+    }
+
+
+    private void updateAllUsers() throws Exception {
+        List<UserEntity> userlist = UserDataUtil.getAllUsers();
+        List<String> list = new ArrayList<String>();
+        for(UserEntity user : userlist) {
+            if(this.username.equalsIgnoreCase(user.username)) {
+                user.setBalance(this.balance);
+            }
+            list.add(user.toString());
+        }
+        UserDataUtil.updateAllUsers(list);
     }
 
     public String toString() {

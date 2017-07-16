@@ -1,7 +1,7 @@
 package com.bsm.client;
 
-import com.bsm.entity.user.User;
-import com.bsm.entity.user.UserAccountService;
+import com.bsm.user.entity.UserEntity;
+import com.bsm.user.service.UserAccountService;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ public class Interface {
         try {
             boolean isLoggedIn = false;
             int command = 0;
-            User user = null;
+            UserEntity user = null;
             while(command != 5) {
                 if(user == null) {
                     //TODO Implement Open Account
@@ -20,8 +20,11 @@ public class Interface {
                     System.out.print("Password:");
                     String password = scanner.next();  
                     user =  UserAccountService.getAuthenticatedUser(username, password);
+                    if(user == null) {
+                        System.out.println("Invalid Login, try again!");
+                    }
                 } else {
-                    String console = "Choose what you wanna do? \n1. View Balance \n2. Deposit Amount \n3. Purchase Item \n4. Close Account \n5. Exit \nHit that number:";
+                    String console = "Choose what you wanna do? \n1. View Balance \n2. Deposit Amount \n3. Purchase Item \n4. Close Account \n5. Exit \nChoose a number:";
                     System.out.print(console);
                     command = scanner.nextInt();
                     switch(command) {
@@ -34,14 +37,18 @@ public class Interface {
                             UserAccountService.deposit(user, scanner.nextInt());
                             continu();
                             break;
-                        case 3:                        
-                            System.out.println("You purchased some crap");                    
+                        case 3:
+                            System.out.print("Enter price of item:");
+                            UserAccountService.purchase(user, scanner.nextInt());
                             continu();
                             break;
                         case 4: 
                             System.out.println("You closed the account");
+                            /*long withdrawAmount = UserAccountService.viewBalance(user);
+                            UserAccountService.purchase(user, withdrawAmount);*/
+                            System.out.println("Here's $" + UserAccountService.closeAccount(user) + "! That's all you had! Thanks for being with us!");
                             continu();
-                            break;
+                            return;
                         case 5:
                             break;
                         default:                        
@@ -56,7 +63,6 @@ public class Interface {
     
     private static void continu() {
         System.out.println("\n\nHit Enter to continue...");
-        scanner.nextLine();
         scanner.nextLine();
     }
 

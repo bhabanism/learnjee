@@ -33,7 +33,5 @@
     mvn archetype:generate -DgroupId=com.bsm -DartifactId=fake-wallet -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 
 ### Tasks
-* Open in IDEA
-* Move code to appropriate package structure
 * Add unit tests, mock the data source
 

@@ -1,20 +1,21 @@
-package com.bsm.entity.user;
+package com.bsm.user.dataaccess;
 
 import java.util.StringTokenizer;
 import java.util.List;
 import java.util.ArrayList;
 import com.bsm.dataccess.DataAccess;
+import com.bsm.user.entity.UserEntity;
 
 
 public class UserDataUtil {
-    public static List<User> getAllUsers() throws Exception {
-        List<User> userlist = new ArrayList<User>();
+    public static List<UserEntity> getAllUsers() throws Exception {
+        List<UserEntity> userlist = new ArrayList<UserEntity>();
         List<String> list = DataAccess.getData();
         StringTokenizer tokens;
-        User user;
+        UserEntity user;
         for(String line : list) {
             tokens = new StringTokenizer(line);
-            user = new User(tokens.nextToken(), tokens.nextToken());
+            user = new UserEntity(tokens.nextToken(), tokens.nextToken());
             user.setBalance(Long.parseLong(tokens.nextToken()));
             userlist.add(user);
         }
@@ -27,8 +28,8 @@ public class UserDataUtil {
 
     public static void main(String[] args) {
         try {
-            List<User> list = getAllUsers();
-            for(User user : list) {
+            List<UserEntity> list = getAllUsers();
+            for(UserEntity user : list) {
                 System.out.println(user.toString());
             }
         } catch(Exception e) {
