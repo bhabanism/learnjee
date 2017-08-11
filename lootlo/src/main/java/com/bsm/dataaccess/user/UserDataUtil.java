@@ -3,7 +3,7 @@ package com.bsm.dataaccess.user;
 import java.util.StringTokenizer;
 import java.util.List;
 import java.util.ArrayList;
-import com.bsm.dataaccess.DataAccess;
+import com.bsm.dataaccess.CSVDataAccess;
 import com.bsm.entity.user.UserEntity;
 
 
@@ -12,7 +12,7 @@ public class UserDataUtil {
 
     public static List<UserEntity> getAllUsersFromDB() throws Exception {
         userList.clear();
-        List<String> list = DataAccess.getData();
+        List<String> list = CSVDataAccess.getData();
         StringTokenizer tokens;
         UserEntity user;
         for(String line : list) {
@@ -34,7 +34,7 @@ public class UserDataUtil {
     }
 
     public static void updateAllUsers(List<String> list) throws Exception {
-        DataAccess.updateData(list);
+        CSVDataAccess.updateData(list);
     }
 
     public static void main(String[] args) {

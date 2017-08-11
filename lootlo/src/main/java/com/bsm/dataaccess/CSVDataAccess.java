@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-public class DataAccess {
+public class CSVDataAccess {
     private static final String DATA_SOURCE = "data.csv";
     
     public static List<String> getData() throws Exception {
