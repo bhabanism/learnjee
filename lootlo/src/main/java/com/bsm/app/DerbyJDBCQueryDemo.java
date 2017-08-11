@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mishra on 11/8/17.
@@ -25,7 +27,7 @@ public class DerbyJDBCQueryDemo {
     }
 
 
-    public static void getDerbyData() throws Exception {
+    public static List<String> getDerbyData() throws Exception {
 
         Class.forName(DERBY_JDBC_CLIENT_DRIVER).newInstance();
         Connection con = DriverManager.getConnection(dbURL);
@@ -33,11 +35,16 @@ public class DerbyJDBCQueryDemo {
 
         Statement stmt=con.createStatement();
         ResultSet rs=stmt.executeQuery("select * from junk");
+
+        List<String> junkList = new ArrayList<String>();
         while(rs.next()) {
-            System.out.println("Junk Data: " + rs.getString(1));
+            junkList.add(rs.getString("data"));
+            System.out.println("Junk Data: " + rs.getString("data"));
         }
 
         con.close();
+
+        return junkList;
 
 
     }

@@ -9,6 +9,6 @@ public class Howler {
     }
 
     public static String sayHello() {
-        return "Heylooooooo!!!!";
+        return "Go to Hell!";
     }
 }
