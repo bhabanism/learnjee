@@ -78,6 +78,7 @@ ___
  * **mvn install** : to install dependencies
  * **mvn compile** : to compile the source
  * **mvn package** : to create war file
+ * **git rm <-r> --cache <folder/file>** to remove tracked files from repo
 
  > TODO: find ways to start server, db and deploy using maven/ant/gradle/bash
 
