@@ -75,12 +75,14 @@
     ./asadmin stop-domain lootlo
 
 ### URL
-    Domain: http://localhost:8080/lootlo/
+ * [Domain URL](http://localhost:8080/lootlo/)
 
-    Admin: http://localhost:4848
+ * [Admin URL](http://localhost:4848)
 
 
 ## Derby DB
+
+ > Comes with Glassfish!
 
 ### Start
     cd /mnt/softwares/Ubuntu_programs/glassfish-4.1.1/javadb/bin
@@ -109,10 +111,18 @@
 
 ###### **JDBC URL** - jdbc:derby://localhost:1527/lootlodb
 
+#### More Info
+ * [Oracle docs](http://docs.oracle.com/javadb/10.8.3.0/getstart/twwdactivity1.html)
+
+
+___
+
 ##### Useful hotkeys and command
 
- * **Alt+F12** : Terminal
+ * **Alt+F12** : Terminal in IntelliJ IDEA
  * **mvn install** : to install dependencies
  * **mvn compile** : to compile the source
  * **mvn package** : to create war file
+
+ > TODO: find ways to start server, db and deploy using maven/ant/gradle/bash
 
