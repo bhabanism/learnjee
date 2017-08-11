@@ -9,7 +9,7 @@
 
 
 ### POM
- [POM File](./pom.xml)
+ [POM File](../pom.xml)
 
 
 ## Glassfish
