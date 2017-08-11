@@ -88,17 +88,26 @@
     ./startNetworkServer
 
 ### ### Create new DB
-    * From a new terminal start ij
-    > ij
-    > CONNECT 'jdbc:derby:lootlodb;create=true';
+ * From a new terminal start ij
+ > ij
+
+ > CONNECT 'jdbc:derby:lootlodb;create=true';
 
 ### For Derby GUI use netbeans
  1. Connect to JavaDB
  2. Create new connection using Drivers > Java DB (Network)
- 3. Host - localhost, Port - 1527, DB name - lootlodb, admin@admin
- 4. Choose Schema as APP
+ 3. Config:
 
-...jdbc:derby://localhost:1527/testdb
+    + Host - localhost
+    + Port - 1527
+    + DB name - lootlodb
+    + admin@admin
+    + Choose Schema as APP
+
+### Similarly with DBeaver
+ - Picked **derbyclient jar** file from derby lib folder for connection
+
+###### **JDBC URL** - jdbc:derby://localhost:1527/lootlodb
 
 ##### Useful hotkeys and command
 
