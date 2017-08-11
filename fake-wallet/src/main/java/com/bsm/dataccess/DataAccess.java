@@ -1,6 +1,5 @@
 package com.bsm.dataccess;
 
-import java.util.stream.Stream;
 import java.util.List;
 import java.util.ArrayList;
 import java.nio.file.Files;
@@ -18,22 +17,16 @@ public class DataAccess {
         writeFile(DATA_SOURCE, list);        
     }
 
-    private static List<String> readFile(String filePath) throws Exception {
+    private static List<String> readFile(@SuppressWarnings("SameParameterValue") String filePath) throws Exception {
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
             List<String> list = new ArrayList<String>();
-            stream.forEach(line -> list.add(line));
+            stream.forEach(list::add);
             return new ArrayList<>(list);
-        } catch(Exception e) {
-            throw e;
         }
     }
 
     private static void writeFile(String filePath, List<String> list) throws Exception {
-        try {
-            Files.write(Paths.get(filePath), (Iterable<String>)list.stream()::iterator);
-        } catch(Exception e) {
-            throw e;
-        }
+        Files.write(Paths.get(filePath), (Iterable<String>)list.stream()::iterator);
     }
 
 

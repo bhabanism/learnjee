@@ -6,7 +6,7 @@ import com.bsm.user.service.UserAccountService;
 import java.util.Scanner;
 
 public class Interface {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     public static void main() {
         try {
             int command = 0;

@@ -13,14 +13,21 @@ import org.junit.Assert;
 * @since <pre>Jul 16, 2017</pre> 
 * @version 1.0 
 */ 
-public class UserAccountServiceTest { 
+public class UserAccountServiceTest {
+
+    private static UserEntity testuser;
 
     @Before
     public void before() throws Exception {
+        String username = "testuser";
+        String password = "testpass";
+        long openingBalance = 1000;
+        testuser =  UserAccountService.openAccount(username, password, openingBalance);
     }
 
     @After
     public void after() throws Exception {
+        UserAccountService.closeAccount(testuser);
     }
 
     /**
@@ -30,10 +37,7 @@ public class UserAccountServiceTest {
     */
     @Test
     public void testViewBalance() throws Exception {
-        String username = "testuser";
-        String password = "testpass";
-        UserEntity user =  UserAccountService.getAuthenticatedUser(username, password);
-        long balance = UserAccountService.viewBalance(user);
+        long balance = UserAccountService.viewBalance(testuser);
         Assert.assertEquals(balance, 1000);
     }
 
@@ -44,11 +48,8 @@ public class UserAccountServiceTest {
     */
     @Test
     public void testDeposit() throws Exception {
-        String username = "testuser";
-        String password = "testpass";
-        UserEntity user =  UserAccountService.getAuthenticatedUser(username, password);
-        UserAccountService.deposit(user, 1000);
-        long balance = UserAccountService.viewBalance(user);
+        UserAccountService.deposit(testuser, 1000);
+        long balance = UserAccountService.viewBalance(testuser);
         Assert.assertEquals(balance, 2000);
     }
 
@@ -59,46 +60,10 @@ public class UserAccountServiceTest {
     */
     @Test
     public void testPurchase() throws Exception {
-        String username = "testuser";
-        String password = "testpass";
-        UserEntity user =  UserAccountService.getAuthenticatedUser(username, password);
         long price = 500;
-        UserAccountService.purchase(user, price);
-        long balance = UserAccountService.viewBalance(user);
-        Assert.assertEquals(balance, 1500);
-    }
-
-    /**
-    *
-    * Method: closeAccount()
-    *
-    */
-    @Test
-    public void testCloseAccount() throws Exception {
-    //TODO: Test goes here...
-    }
-
-    /**
-    *
-    * Method: openAccount(long deposit)
-    *
-    */
-    @Test
-    public void testOpenAccount() throws Exception {
-        String username = "testuser";
-        String password = "testpass";
-        long openingBalance = 100;
-        UserEntity user =  UserAccountService.openAccount(username, password, openingBalance);
-    }
-
-    /**
-    *
-    * Method: toString(UserEntity user)
-    *
-    */
-    @Test
-    public void testToString() throws Exception {
-    //TODO: Test goes here...
+        UserAccountService.purchase(testuser, price);
+        long balance = UserAccountService.viewBalance(testuser);
+        Assert.assertEquals(balance, 500);
     }
 
 

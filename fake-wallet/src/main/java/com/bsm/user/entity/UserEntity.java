@@ -16,20 +16,6 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getUsername() {
-        return this.username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public long getBalance() {
         return this.balance;
     }
@@ -65,15 +51,17 @@ public class UserEntity {
 
     public boolean authenticate() throws Exception {
         List<UserEntity> list = UserDataUtil.getAllUsersFromDB();
-        boolean isUserValid = false;
         for(UserEntity user : list) {
-            isUserValid = user.username.equals(this.username) && user.password.equals(this.password);
-            if(isUserValid) {
+            if(isUserValid(user)) {
                 this.setBalance(user.getBalance());
-                return isUserValid;
+                return true;
             }
         }
-        return isUserValid;
+        return false;
+    }
+
+    private boolean isUserValid(UserEntity user) {
+        return user.username.equals(this.username) && user.password.equals(this.password);
     }
 
 
@@ -100,7 +88,7 @@ public class UserEntity {
     @Deprecated
     private void modifyBalanceAndupdateAllUsers() throws Exception {
         List<UserEntity> userlist = UserDataUtil.getAllUsersFromDB();
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for(UserEntity user : userlist) {
             if(this.username.equalsIgnoreCase(user.username)) {
                 user.setBalance(this.balance);

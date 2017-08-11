@@ -26,6 +26,7 @@ public class UserAccountService {
     
     public static long closeAccount(UserEntity user) throws Exception {
         long balance = user.closeAccount();
+        //noinspection UnusedAssignment
         user = null;
         return balance;
     }
@@ -37,10 +38,6 @@ public class UserAccountService {
 
     private static UserEntity getAuthenticatedUser(UserEntity user) throws Exception {
         return user.authenticate() ? user : null;
-    }
-
-    public String toString(UserEntity user) {
-        return user.toString();        
     }
 
     public static UserEntity openAccount(String username, String password, long openingBalance) throws Exception {
