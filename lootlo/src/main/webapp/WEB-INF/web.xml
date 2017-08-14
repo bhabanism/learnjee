@@ -5,7 +5,7 @@
          version="3.1">
   <servlet>
     <servlet-name>Demo</servlet-name>
-    <servlet-class>servlets.ServletDemo</servlet-class>
+    <servlet-class>com.bsm.web.servlets.ServletDemo</servlet-class>
     <async-supported>true</async-supported>
   </servlet>
   <servlet-mapping>

@@ -1,4 +1,4 @@
-package servlets;
+package com.bsm.web.servlets;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 /**
  * Created by mishra on 14/8/17.
  */
-
+//FIXME: Needs web.xml configuration, try with @WebServlet annotation!
 public class ServletDemo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
